@@ -1,56 +1,114 @@
-# Welcome to your Expo app 👋
+# 🔐 LoginApp React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern authentication UI application built with **React Native Expo** and **TypeScript**.
 
-## Get started
+This project focuses on creating a clean, responsive, and modern login interface inspired by Figma UI design. The application implements reusable components, form validation, and a structured React Native architecture.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📱 Preview
 
-2. Start the app
+<p align="center">
+  <img src="assets/screenshots/login-screen.png" width="350" />
+</p>
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## ✨ Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- ✅ Modern login screen UI
+- ✅ Username input field
+- ✅ Password input field
+- ✅ Password masking
+- ✅ Login validation
+- ✅ Custom reusable components
+- ✅ Responsive mobile layout
+- ✅ Figma-inspired design
+- ✅ Expo development workflow
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🎨 Design
 
-When you're ready, run:
+The user interface was designed using **Figma** and implemented into React Native.
 
-```bash
-npm run reset-project
-```
+Design concepts:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Clean and minimal interface
+- Modern authentication experience
+- Card-based layout
+- Smooth gradient background
+- User-friendly interaction
 
-### Other setup steps
+---
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## 🛠 Tech Stack
 
-## Learn more
+| Technology | Description |
+|---|---|
+| React Native | Mobile application framework |
+| Expo | Development platform |
+| TypeScript | Programming language |
+| Figma | UI/UX design tool |
+| Visual Studio Code | Code editor |
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📂 Project Structure
+LoginApp-ReactNative
+│
+├── assets
+│   ├── images
+│   │   └── logo.png
+│   │
+│   └── screenshots
+│       └── login-screen.png
+│
+├── src
+│   │
+│   ├── app
+│   │   └── index.tsx
+│   │
+│   └── components
+│       ├── InputField.tsx
+│       └── PrimaryButton.tsx
+│
+├── package.json
+├── app.json
+├── tsconfig.json
+└── README.md
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🚀 Installation
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Clone this repository:
+
+```bash`
+git clone https://github.com/Red23Line/LoginApp-ReactNative.git
+
+Navigate to project folder:
+cd LoginApp-ReactNative
+
+Install dependencies:
+npm install
+
+Run the application:
+npx expo start
+
+📱 Running Environment
+This project supports:
+- Expo Go
+- Android Emulator
+- iOS Simulator
+- Web Browser
+
+🔮 Future Improvements
+- [ ] Password visibility toggle
+- [ ] Remember me feature
+- [ ] Forgot password page
+- [ ] Social login integration
+- [ ] Backend authentication
+- [ ] Dark mode support
+- [ ] User registration page
+
