@@ -1,5 +1,6 @@
-import { useState } from "react";
 
+import { LinearGradient } from "expo-linear-gradient";
+import { useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -7,205 +8,162 @@ import {
   View,
 } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
-
 import InputField from "../components/InputField";
-
 import PrimaryButton from "../components/PrimaryButton";
 
+export default function Index() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<
+    "error" | "success" | ""
+  >("");
 
-export default function Index(){
-
-  const [username,setUsername] = useState("");
-  const [password,setPassword] = useState("");
-  const [message,setMessage] = useState("");
-
-
-  const handleLogin = ()=>{
-
-    if(username === "" || password === ""){
-
+  const handleLogin = () => {
+    if (!username.trim() || !password.trim()) {
       setMessage("Username dan password wajib diisi");
-
-    }else{
-
-      setMessage(
-        "Login berhasil\nSelamat datang " + username
-      );
-
+      setMessageType("error");
+    } else {
+      setMessage(`Login berhasil\nSelamat datang, ${username.trim()}!`);
+      setMessageType("success");
     }
-
   };
 
-
-  return(
-
+  return (
     <LinearGradient
-
-      colors={[
-        "#EEF2FF",
-        "#7C3AED"
-      ]}
-
+      colors={["#EEF2FF", "#C4B5FD", "#7C3AED"]}
       style={styles.container}
-
     >
-
-
       <View style={styles.card}>
-
-
         <Image
-
-          source={require("C:\\Users\\seanl\\LoginApp\\assets\\expo.icon\\Assets\\images\\logo.png")}
-
+          source={require("../../assets/expo.icon/Assets/images/logo.png")}
           style={styles.logo}
-
+          resizeMode="contain"
         />
 
-
-        <Text style={styles.title}>
-          Welcome Back
-        </Text>
-
+        <Text style={styles.title}>Welcome Back</Text>
 
         <Text style={styles.subtitle}>
-          Sign in to continue
+          Sign in to continue to your account
         </Text>
 
+        <View style={styles.form}>
+          <Text style={styles.label}>Username</Text>
+          <InputField
+            placeholder="Enter your username"
+            value={username}
+            onChangeText={setUsername}
+          />
 
+          <Text style={styles.label}>Password</Text>
+          <InputField
+            placeholder="Enter your password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          />
 
-        <InputField
+          <PrimaryButton onPress={handleLogin} />
+        </View>
 
-          placeholder="Username"
+        {message !== "" && (
+          <Text
+            style={[
+              styles.message,
+              messageType === "error"
+                ? styles.errorMessage
+                : styles.successMessage,
+            ]}
+          >
+            {message}
+          </Text>
+        )}
 
-          value={username}
-
-          onChangeText={setUsername}
-
-        />
-
-
-
-        <InputField
-
-          placeholder="Password"
-
-          value={password}
-
-          onChangeText={setPassword}
-
-          secureTextEntry={true}
-
-        />
-
-
-
-        <PrimaryButton
-
-          onPress={handleLogin}
-
-        />
-
-
-
-        <Text style={styles.message}>
-          {message}
+        <Text style={styles.footer}>
+          Welcome to LoginApp
         </Text>
-
-
-
       </View>
-
-
     </LinearGradient>
-
-
   );
-
 }
 
-
-
 const styles = StyleSheet.create({
-
-
-  container:{
-
-    flex:1,
-
-    justifyContent:"center",
-
-    alignItems:"center",
-
-    padding:20
-
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
   },
 
-
-  card:{
-
-    width:340,
-
-    backgroundColor:"#FFFFFF",
-
-    borderRadius:24,
-
-    padding:20,
-
-    elevation:5
-
+  card: {
+    width: "100%",
+    maxWidth: 380,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 28,
+    padding: 26,
+    borderWidth: 1,
+    borderColor: "#F3F4F6",
+    elevation: 8,
+    shadowColor: "#312E81",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
   },
 
-
-  logo:{
-
-    width:70,
-
-    height:70,
-
-    alignSelf:"center",
-
-    marginBottom:15
-
+  logo: {
+    width: 76,
+    height: 76,
+    alignSelf: "center",
+    marginBottom: 18,
   },
 
-
-  title:{
-
-    fontSize:28,
-
-    fontWeight:"700",
-
-    textAlign:"center",
-
-    color:"#111827"
-
+  title: {
+    fontSize: 29,
+    fontWeight: "700",
+    textAlign: "center",
+    color: "#111827",
+    marginBottom: 8,
   },
 
-
-  subtitle:{
-
-    fontSize:14,
-
-    color:"#6B7280",
-
-    textAlign:"center",
-
-    marginBottom:30
-
+  subtitle: {
+    fontSize: 14,
+    color: "#6B7280",
+    textAlign: "center",
+    lineHeight: 21,
+    marginBottom: 28,
   },
 
+  form: {
+    gap: 10,
+  },
 
-  message:{
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#374151",
+    marginBottom: -4,
+  },
 
-    marginTop:20,
+  message: {
+    marginTop: 18,
+    textAlign: "center",
+    fontSize: 13,
+    fontWeight: "600",
+    lineHeight: 20,
+  },
 
-    textAlign:"center",
+  errorMessage: {
+    color: "#DC2626",
+  },
 
-    fontWeight:"bold"
+  successMessage: {
+    color: "#059669",
+  },
 
-  }
-
-
+  footer: {
+    textAlign: "center",
+    color: "#9CA3AF",
+    fontSize: 12,
+    marginTop: 24,
+  },
 });
