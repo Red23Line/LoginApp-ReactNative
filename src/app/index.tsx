@@ -1,5 +1,5 @@
-
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -12,6 +12,8 @@ import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
 
 export default function Index() {
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -19,15 +21,22 @@ export default function Index() {
     "error" | "success" | ""
   >("");
 
-  const handleLogin = () => {
-    if (!username.trim() || !password.trim()) {
-      setMessage("Username dan password wajib diisi");
-      setMessageType("error");
-    } else {
-      setMessage(`Login berhasil\nSelamat datang, ${username.trim()}!`);
-      setMessageType("success");
-    }
-  };
+  
+const handleLogin = () => {
+  if (!username.trim() || !password.trim()) {
+    setMessage("Username dan password wajib diisi");
+    setMessageType("error");
+    return;
+  }
+
+  router.replace({
+    pathname: "/home",
+    params: {
+      username: username.trim(),
+    },
+  });
+};
+
 
   return (
     <LinearGradient
