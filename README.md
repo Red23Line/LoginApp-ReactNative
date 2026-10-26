@@ -1,114 +1,122 @@
-# 🔐 LoginApp React Native
+# 📚 StudyMate — Student Task Management App
 
-A modern authentication UI application built with **React Native Expo** and **TypeScript**.
+StudyMate is a student productivity application built with React Native, Expo, and TypeScript. It is designed to help students organize academic tasks, monitor their progress, and view their study schedule through a clean and modern dashboard.
 
-This project focuses on creating a clean, responsive, and modern login interface inspired by Figma UI design. The application implements reusable components, form validation, and a structured React Native architecture.
-
----
-
-## 📱 Preview
-
-<p align="center">
-  <img src="assets/screenshots/login-screen.png" width="350" />
-</p>
-
----
+The project started as a login screen UI and is being developed into a student task management application.
 
 ## ✨ Features
 
-- ✅ Modern login screen UI
-- ✅ Username input field
-- ✅ Password input field
-- ✅ Password masking
-- ✅ Login validation
-- ✅ Custom reusable components
-- ✅ Responsive mobile layout
-- ✅ Figma-inspired design
-- ✅ Expo development workflow
+### 🔐 Login Screen
+- Modern login interface with a purple gradient background
+- Username and password input fields
+- Password visibility toggle
+- Basic input validation
+- Navigation to the Home dashboard
 
----
+### 📊 StudyMate Dashboard
+- Personalized greeting
+- Summary of total, pending, and completed tasks
+- Automatic study progress calculation
+- Interactive task checklist
+- Sample academic schedule
+- Logout navigation
 
-## 🎨 Design
+### 🎨 User Interface
+- Consistent purple and white color theme
+- Reusable input and button components
+- Card-based dashboard layout
+- Responsive layout for supported screen sizes
 
-The user interface was designed using **Figma** and implemented into React Native.
+## 🛠️ Tech Stack
 
-Design concepts:
-
-- Clean and minimal interface
-- Modern authentication experience
-- Card-based layout
-- Smooth gradient background
-- User-friendly interaction
-
----
-
-## 🛠 Tech Stack
-
-| Technology | Description |
+| Technology | Purpose |
 |---|---|
-| React Native | Mobile application framework |
-| Expo | Development platform |
-| TypeScript | Programming language |
-| Figma | UI/UX design tool |
-| Visual Studio Code | Code editor |
-
----
+| React Native | User interface development |
+| Expo | Development and application runtime |
+| TypeScript | Type-safe JavaScript development |
+| Expo Router | File-based navigation |
+| Expo Linear Gradient | Gradient backgrounds |
+| Git & GitHub | Version control |
 
 ## 📂 Project Structure
-LoginApp-ReactNative
-│
-├── assets
-│   ├── images
-│   │   └── logo.png
-│   │
-│   └── screenshots
-│       └── login-screen.png
-│
-├── src
-│   │
-│   ├── app
-│   │   └── index.tsx
-│   │
-│   └── components
+
+```text
+LoginApp-ReactNative/
+├── assets/
+├── src/
+│   ├── app/
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   ├── home.tsx
+│   │   └── explore.tsx
+│   └── components/
 │       ├── InputField.tsx
-│       └── PrimaryButton.tsx
-│
-├── package.json
+│       ├── PrimaryButton.tsx
+│       └── app-tabs.web.tsx
 ├── app.json
+├── package.json
 ├── tsconfig.json
 └── README.md
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js and npm
+- Git
+- Expo-compatible development environment
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Red23Line/LoginApp-ReactNative.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd LoginApp-ReactNative
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npx expo start
+```
+
+Follow the Expo terminal instructions to open the application in a supported environment.
+
+## 🧪 Current Project Status
+
+StudyMate is currently a frontend prototype.
+
+- Login validation only checks whether the username and password fields are filled in.
+- No real account authentication or backend integration is implemented yet.
+- Task and schedule information currently uses sample data.
+- Task completion and progress are managed in application state and are not permanently saved.
+
+## 🔮 Planned Improvements
+
+- Add new tasks with subject names and deadlines
+- Edit and delete tasks
+- Persist tasks between application sessions
+- Add a dedicated task management screen
+- Add a more complete weekly class schedule
+- Implement real authentication if required
+- Improve accessibility and responsive layouts
+
+## 🎯 Project Goal
+
+The goal of StudyMate is to provide a simple and intuitive way for students to manage academic tasks and track their study progress while learning mobile application development with React Native.
 
 ---
 
-## 🚀 Installation
-
-Clone this repository:
-
-```bash`
-git clone https://github.com/Red23Line/LoginApp-ReactNative.git
-
-Navigate to project folder:
-cd LoginApp-ReactNative
-
-Install dependencies:
-npm install
-
-Run the application:
-npx expo start
-
-📱 Running Environment
-This project supports:
-- Expo Go
-- Android Emulator
-- iOS Simulator
-- Web Browser
-
-🔮 Future Improvements
-- [ ] Password visibility toggle
-- [ ] Remember me feature
-- [ ] Forgot password page
-- [ ] Social login integration
-- [ ] Backend authentication
-- [ ] Dark mode support
-- [ ] User registration page
-
+*Developed as a learning project using React Native, Expo, and TypeScript.*
