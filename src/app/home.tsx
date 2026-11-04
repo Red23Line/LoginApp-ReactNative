@@ -1,13 +1,13 @@
-
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from "react-native";
 
 type Task = {
@@ -50,6 +50,12 @@ export default function HomeScreen() {
 
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
+ const [showAddForm, setShowAddForm] = useState(false);
+ const [newTitle, setNewTitle] = useState("");
+ const [newSubject, setNewSubject] = useState("");
+ const [newDeadline, setNewDeadline] = useState("");
+ const [addTaskError, setAddTaskError] = useState("");
+
   const completedTasks = tasks.filter(
     (task) => task.completed
   ).length;
@@ -70,6 +76,36 @@ export default function HomeScreen() {
       )
     );
   };
+
+  const addTask = () => {
+  if (
+    !newTitle.trim() ||
+    !newSubject.trim() ||
+    !newDeadline.trim()
+  ) {
+    setAddTaskError("Semua kolom wajib diisi!");
+    return;
+  }
+
+  const newTask: Task = {
+    id: Date.now(),
+    title: newTitle.trim(),
+    subject: newSubject.trim(),
+    deadline: newDeadline.trim(),
+    completed: false,
+  };
+
+  setTasks((currentTasks) => [
+    ...currentTasks,
+    newTask,
+  ]);
+
+  setNewTitle("");
+  setNewSubject("");
+  setNewDeadline("");
+  setAddTaskError("");
+  setShowAddForm(false);
+};
 
   return (
     <LinearGradient
@@ -164,6 +200,73 @@ export default function HomeScreen() {
           </View>
           <Text style={styles.sectionIcon}>📝</Text>
         </View>
+<Pressable
+  style={styles.addTaskButton}
+  onPress={() => {
+    setShowAddForm(!showAddForm);
+    setAddTaskError("");
+  }}
+>
+  <Text style={styles.addTaskButtonText}>
+    + Tambah Tugas
+  </Text>
+</Pressable>
+
+{showAddForm && (
+  <View style={styles.addTaskForm}>
+    <Text style={styles.formTitle}>
+      Tugas Baru 📝
+    </Text>
+
+    <TextInput
+      style={styles.formInput}
+      placeholder="Nama tugas"
+      value={newTitle}
+      onChangeText={setNewTitle}
+    />
+
+    <TextInput
+      style={styles.formInput}
+      placeholder="Nama mata kuliah"
+      value={newSubject}
+      onChangeText={setNewSubject}
+    />
+
+    <TextInput
+      style={styles.formInput}
+      placeholder="Deadline (contoh: 5 Nov 2026)"
+      value={newDeadline}
+      onChangeText={setNewDeadline}
+    />
+
+    {addTaskError !== "" && (
+      <Text style={styles.formError}>
+        {addTaskError}
+      </Text>
+    )}
+
+    <Pressable
+      style={styles.submitTaskButton}
+      onPress={addTask}
+    >
+      <Text style={styles.submitTaskText}>
+        Simpan Tugas
+      </Text>
+    </Pressable>
+
+    <Pressable
+      style={styles.cancelTaskButton}
+      onPress={() => {
+        setShowAddForm(false);
+        setAddTaskError("");
+      }}
+    >
+      <Text style={styles.cancelTaskText}>
+        Batal
+      </Text>
+    </Pressable>
+  </View>
+)}
 
         {tasks.map((task) => (
           <Pressable
@@ -593,6 +696,81 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "800",
   },
+  addTaskButton: {
+  backgroundColor: "#7C3AED",
+  borderRadius: 14,
+  paddingVertical: 14,
+  alignItems: "center",
+  marginBottom: 16,
+},
+
+addTaskButtonText: {
+  color: "#FFFFFF",
+  fontSize: 14,
+  fontWeight: "800",
+},
+
+addTaskForm: {
+  backgroundColor: "#FFFFFF",
+  borderRadius: 18,
+  padding: 18,
+  marginBottom: 18,
+  elevation: 2,
+  shadowColor: "#312E81",
+  shadowOffset: { width: 0, height: 3 },
+  shadowOpacity: 0.06,
+  shadowRadius: 7,
+},
+
+formTitle: {
+  color: "#312E81",
+  fontSize: 17,
+  fontWeight: "800",
+  marginBottom: 15,
+},
+
+formInput: {
+  backgroundColor: "#F5F3FF",
+  borderWidth: 1,
+  borderColor: "#DDD6FE",
+  borderRadius: 11,
+  paddingHorizontal: 13,
+  paddingVertical: 12,
+  fontSize: 13,
+  color: "#312E81",
+  marginBottom: 12,
+},
+
+formError: {
+  color: "#DC2626",
+  fontSize: 12,
+  marginBottom: 12,
+},
+
+submitTaskButton: {
+  backgroundColor: "#7C3AED",
+  borderRadius: 11,
+  padding: 13,
+  alignItems: "center",
+  marginTop: 4,
+},
+
+submitTaskText: {
+  color: "#FFFFFF",
+  fontWeight: "800",
+  fontSize: 13,
+},
+
+cancelTaskButton: {
+  padding: 12,
+  alignItems: "center",
+},
+
+cancelTaskText: {
+  color: "#7C3AED",
+  fontWeight: "700",
+  fontSize: 13,
+},
   pressed: {
     opacity: 0.7,
   },
