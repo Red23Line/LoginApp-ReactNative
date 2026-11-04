@@ -269,60 +269,78 @@ export default function HomeScreen() {
 )}
 
         {tasks.map((task) => (
-          <Pressable
-            key={task.id}
-            style={({ pressed }) => [
-              styles.taskCard,
-              pressed && styles.pressed,
-            ]}
-            onPress={() => toggleTask(task.id)}
-            accessibilityRole="checkbox"
-            accessibilityState={{ checked: task.completed }}
-          >
-            <View
-              style={[
-                styles.checkbox,
-                task.completed && styles.checkboxChecked,
-              ]}
-            >
-              {task.completed && (
-                <Text style={styles.checkmark}>✓</Text>
-              )}
-            </View>
+  <View
+    key={task.id}
+    style={styles.taskCard}
+  >
+    {/* Checklist */}
+    <Pressable
+      style={[
+        styles.checkbox,
+        task.completed && styles.checkboxChecked,
+      ]}
+      onPress={() => toggleTask(task.id)}
+      accessibilityRole="checkbox"
+      accessibilityState={{ checked: task.completed }}
+    >
+      {task.completed && (
+        <Text style={styles.checkmark}>✓</Text>
+      )}
+    </Pressable>
 
-            <View style={styles.taskInfo}>
-              <Text
-                style={[
-                  styles.taskTitle,
-                  task.completed && styles.taskCompleted,
-                ]}
-              >
-                {task.title}
-              </Text>
-              <Text style={styles.taskSubject}>{task.subject}</Text>
-            </View>
+    {/* Informasi tugas */}
+    <Pressable
+      style={styles.taskInfo}
+      onPress={() =>
+        router.push({
+          pathname: "/task-detail",
+          params: {
+            id: String(task.id),
+            title: task.title,
+            subject: task.subject,
+            deadline: task.deadline,
+            completed: String(task.completed),
+            username: username || "",
+          },
+        })
+      }
+    >
+      <Text
+        style={[
+          styles.taskTitle,
+          task.completed && styles.taskCompleted,
+        ]}
+      >
+        {task.title}
+      </Text>
 
-            <View
-              style={[
-                styles.deadlineBadge,
-                task.deadline === "Hari ini" &&
-                  !task.completed &&
-                  styles.urgentBadge,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.deadlineText,
-                  task.deadline === "Hari ini" &&
-                    !task.completed &&
-                    styles.urgentText,
-                ]}
-              >
-                {task.completed ? "Selesai" : task.deadline}
-              </Text>
-            </View>
-          </Pressable>
-        ))}
+      <Text style={styles.taskSubject}>
+        {task.subject}
+      </Text>
+    </Pressable>
+
+    {/* Deadline */}
+    <View
+      style={[
+        styles.deadlineBadge,
+        task.deadline === "Hari ini" &&
+          !task.completed &&
+          styles.urgentBadge,
+      ]}
+    >
+      <Text
+        style={[
+          styles.deadlineText,
+          task.deadline === "Hari ini" &&
+            !task.completed &&
+            styles.urgentText,
+        ]}
+      >
+        {task.completed ? "Selesai" : task.deadline}
+      </Text>
+    </View>
+  </View>
+))}
 
         {/* Schedule */}
         <View style={styles.sectionHeader}>

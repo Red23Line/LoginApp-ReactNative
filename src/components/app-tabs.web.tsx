@@ -30,6 +30,9 @@ export default function AppTabs() {
           <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Explore</TabButton>
           </TabTrigger>
+          <TabTrigger name="task-detail" href="/task-detail" asChild>
+            <TabButton>Detail Tugas</TabButton>
+          </TabTrigger>
         </CustomTabList>
       </TabList>
     </Tabs>
