@@ -9,38 +9,8 @@ import {
   TextInput,
   View
 } from "react-native";
-
-type Task = {
-  id: number;
-  title: string;
-  subject: string;
-  deadline: string;
-  completed: boolean;
-};
-
-const initialTasks: Task[] = [
-  {
-    id: 1,
-    title: "Membuat desain UI aplikasi",
-    subject: "Mobile Programming",
-    deadline: "Hari ini",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Mengerjakan laporan praktikum",
-    subject: "Praktikum",
-    deadline: "Besok",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Belajar materi database",
-    subject: "Basis Data",
-    deadline: "30 Okt",
-    completed: true,
-  },
-];
+import TaskCard from "../components/TaskCard";
+import { Task, initialTasks } from "../data/tasks";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -268,78 +238,25 @@ export default function HomeScreen() {
   </View>
 )}
 
-        {tasks.map((task) => (
-  <View
+{tasks.map((task) => (
+  <TaskCard
     key={task.id}
-    style={styles.taskCard}
-  >
-    {/* Checklist */}
-    <Pressable
-      style={[
-        styles.checkbox,
-        task.completed && styles.checkboxChecked,
-      ]}
-      onPress={() => toggleTask(task.id)}
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked: task.completed }}
-    >
-      {task.completed && (
-        <Text style={styles.checkmark}>✓</Text>
-      )}
-    </Pressable>
-
-    {/* Informasi tugas */}
-    <Pressable
-      style={styles.taskInfo}
-      onPress={() =>
-        router.push({
-          pathname: "/task-detail",
-          params: {
-            id: String(task.id),
-            title: task.title,
-            subject: task.subject,
-            deadline: task.deadline,
-            completed: String(task.completed),
-            username: username || "",
-          },
-        })
-      }
-    >
-      <Text
-        style={[
-          styles.taskTitle,
-          task.completed && styles.taskCompleted,
-        ]}
-      >
-        {task.title}
-      </Text>
-
-      <Text style={styles.taskSubject}>
-        {task.subject}
-      </Text>
-    </Pressable>
-
-    {/* Deadline */}
-    <View
-      style={[
-        styles.deadlineBadge,
-        task.deadline === "Hari ini" &&
-          !task.completed &&
-          styles.urgentBadge,
-      ]}
-    >
-      <Text
-        style={[
-          styles.deadlineText,
-          task.deadline === "Hari ini" &&
-            !task.completed &&
-            styles.urgentText,
-        ]}
-      >
-        {task.completed ? "Selesai" : task.deadline}
-      </Text>
-    </View>
-  </View>
+    task={task}
+    onToggle={toggleTask}
+    onPressDetail={() =>
+      router.push({
+        pathname: "/task-detail",
+        params: {
+          id: String(task.id),
+          title: task.title,
+          subject: task.subject,
+          deadline: task.deadline,
+          completed: String(task.completed),
+          username: username || "",
+        },
+      })
+    }
+  />
 ))}
 
         {/* Schedule */}
@@ -386,6 +303,30 @@ export default function HomeScreen() {
             style={[styles.scheduleDot, styles.scheduleDotBlue]}
           />
         </View>
+
+<Pressable
+  onPress={() => router.push("/schedule")}
+  style={({ pressed }) => ({
+    backgroundColor: "#7C3AED",
+    padding: 15,
+    borderRadius: 14,
+    alignItems: "center",
+    marginTop: 12,
+    marginBottom: 20,
+    opacity: pressed ? 0.7 : 1,
+  })}
+>
+  <Text
+    style={{
+      color: "#FFFFFF",
+      fontSize: 13,
+      fontWeight: "800",
+    }}
+  >
+    Lihat Jadwal Lengkap →
+  </Text>
+</Pressable>
+
 
         {/* Logout */}
         <Pressable

@@ -33,6 +33,9 @@ export default function AppTabs() {
           <TabTrigger name="task-detail" href="/task-detail" asChild>
             <TabButton>Detail Tugas</TabButton>
           </TabTrigger>
+          <TabTrigger name="schedule" href="/schedule" asChild>
+            <TabButton>Jadwal Kuliah</TabButton>
+          </TabTrigger>
         </CustomTabList>
       </TabList>
     </Tabs>
