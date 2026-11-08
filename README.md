@@ -1,42 +1,34 @@
 # 📚 StudyMate — Student Task Management App
 
-StudyMate is a student productivity application built with React Native, Expo, and TypeScript. It is designed to help students organize academic tasks, monitor their progress, and view their study schedule through a clean and modern dashboard.
-
-The project started as a login screen UI and is being developed into a student task management application.
+StudyMate is a student task management application prototype built with **React Native, Expo, TypeScript, and Expo Router**. It helps university students organize assignments, track study progress, and view weekly class schedules through a simple and modern interface.
 
 ## ✨ Features
 
-### 🔐 Login Screen
-- Modern login interface with a purple gradient background
-- Username and password input fields
-- Password visibility toggle
-- Basic input validation
-- Navigation to the Home dashboard
-
-### 📊 StudyMate Dashboard
-- Personalized greeting
-- Summary of total, pending, and completed tasks
-- Automatic study progress calculation
-- Interactive task checklist
-- Sample academic schedule
-- Logout navigation
-
-### 🎨 User Interface
-- Consistent purple and white color theme
-- Reusable input and button components
-- Card-based dashboard layout
-- Responsive layout for supported screen sizes
+- **Login Screen** — Login interface with username and password validation.
+- **Dashboard** — Personalized greeting, task statistics, and study progress tracking.
+- **Task Management** — Add new assignments with task names, subjects, and deadlines.
+- **Task Checklist** — Mark assignments as completed and automatically update progress.
+- **Task Details** — View detailed information about individual assignments.
+- **Class Schedule** — View weekly class schedules and course information.
+- **Logout** — Return to the login screen.
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| React Native | User interface development |
-| Expo | Development and application runtime |
-| TypeScript | Type-safe JavaScript development |
-| Expo Router | File-based navigation |
-| Expo Linear Gradient | Gradient backgrounds |
-| Git & GitHub | Version control |
+- React Native
+- Expo
+- TypeScript
+- Expo Router
+- React Hooks
+- Git & GitHub
+
+## 📱 Main Screens
+
+StudyMate consists of four main application screens:
+
+1. **Login** — User login interface.
+2. **Home / Dashboard** — Task overview, statistics, and study progress.
+3. **Task Details** — Detailed information about assignments.
+4. **Class Schedule** — Weekly class schedule.
 
 ## 📂 Project Structure
 
@@ -48,11 +40,30 @@ LoginApp-ReactNative/
 │   │   ├── _layout.tsx
 │   │   ├── index.tsx
 │   │   ├── home.tsx
+│   │   ├── task-detail.tsx
+│   │   ├── schedule.tsx
 │   │   └── explore.tsx
-│   └── components/
-│       ├── InputField.tsx
-│       ├── PrimaryButton.tsx
-│       └── app-tabs.web.tsx
+│   │
+│   ├── components/
+│   │   ├── ui/
+│   │   ├── InputField.tsx
+│   │   ├── PrimaryButton.tsx
+│   │   ├── TaskCard.tsx
+│   │   ├── app-tabs.tsx
+│   │   ├── app-tabs.web.tsx
+│   │   ├── animated-icon.tsx
+│   │   ├── animated-icon.web.tsx
+│   │   ├── animated-icon.module.css
+│   │   ├── external-link.tsx
+│   │   ├── hint-row.tsx
+│   │   ├── themed-text.tsx
+│   │   ├── themed-view.tsx
+│   │   └── web-badge.tsx
+│   │
+│   └── data/
+│       ├── tasks.ts
+│       └── schedule.ts
+│
 ├── app.json
 ├── package.json
 ├── tsconfig.json
@@ -62,61 +73,60 @@ LoginApp-ReactNative/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js and npm
-- Git
-- Expo-compatible development environment
+
+- Node.js
+- npm
+- Visual Studio Code
+- Expo development environment
 
 ### Installation
 
-Clone the repository:
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/Red23Line/LoginApp-ReactNative.git
 ```
 
-Navigate to the project directory:
+**2. Navigate to the project directory**
 
 ```bash
 cd LoginApp-ReactNative
 ```
 
-Install dependencies:
+**3. Install dependencies**
 
 ```bash
 npm install
 ```
 
-Start the development server:
+**4. Start the Expo development server**
 
 ```bash
 npx expo start
 ```
 
-Follow the Expo terminal instructions to open the application in a supported environment.
+Follow the instructions displayed in the terminal to run the application on a supported device or emulator.
 
-## 🧪 Current Project Status
+## ⚠️ Project Limitations
 
-StudyMate is currently a frontend prototype.
+StudyMate is currently a frontend prototype with the following limitations:
 
-- Login validation only checks whether the username and password fields are filled in.
-- No real account authentication or backend integration is implemented yet.
-- Task and schedule information currently uses sample data.
-- Task completion and progress are managed in application state and are not permanently saved.
+- Login uses basic input validation and does not implement real authentication.
+- Task and class schedule information uses sample data.
+- Task creation and completion status are managed using React State.
+- Data is not permanently stored after the application is reloaded.
+- Task editing and deletion are not yet implemented.
 
-## 🔮 Planned Improvements
+## 🔮 Future Improvements
 
-- Add new tasks with subject names and deadlines
-- Edit and delete tasks
-- Persist tasks between application sessions
-- Add a dedicated task management screen
-- Add a more complete weekly class schedule
-- Implement real authentication if required
-- Improve accessibility and responsive layouts
-
-## 🎯 Project Goal
-
-The goal of StudyMate is to provide a simple and intuitive way for students to manage academic tasks and track their study progress while learning mobile application development with React Native.
+- Implement persistent local data storage.
+- Add task editing and deletion functionality.
+- Improve deadline management.
+- Implement proper authentication.
+- Add more student productivity features.
 
 ---
 
-*Developed as a learning project using React Native, Expo, and TypeScript.*
+**StudyMate — Your Companion in Learning 💜**
+
+Developed with React Native, Expo, and TypeScript.
