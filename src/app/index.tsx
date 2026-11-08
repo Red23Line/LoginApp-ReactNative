@@ -89,7 +89,7 @@ const handleLogin = () => {
         )}
 
         <Text style={styles.footer}>
-          Welcome to LoginApp
+          Welcome to StudyMate
         </Text>
       </View>
     </LinearGradient>
