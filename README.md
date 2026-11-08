@@ -21,6 +21,89 @@ StudyMate is a student task management application prototype built with **React 
 - React Hooks
 - Git & GitHub
 
+## 🌐 API Integration
+
+StudyMate is integrated with the ReqRes API through a custom Node.js and Express backend.
+
+The backend acts as an intermediary between the React Native application and the ReqRes API.
+
+### API Features
+
+- **GET /api/tasks** — Retrieve task records from ReqRes.
+- **POST /api/tasks** — Create and save new tasks to ReqRes.
+
+### Backend Technologies
+
+- Node.js
+- Express.js
+- ReqRes API
+- CORS
+- dotenv
+
+### Backend Architecture
+
+React Native Application → Express Backend → ReqRes API
+
+### Running the Backend
+
+1. Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+2. Install backend dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `backend/.env.local` file:
+
+```env
+REQRES_MANAGE_KEY=your_manage_key
+REQRES_PROJECT_ID=57820
+REQRES_ENV=prod
+PORT=3001
+```
+
+4. Start the backend server:
+
+```bash
+npm start
+```
+
+The backend will run at:
+
+`http://localhost:3001`
+
+### Running the React Native Application
+
+Open another terminal in the project root directory:
+
+```bash
+npm install
+npx expo start
+```
+
+**Note:** API credentials are stored in the backend environment configuration and should never be committed to GitHub.
+
+LoginApp-ReactNative/
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   └── package-lock.json
+├── src/
+│   ├── app/
+│   ├── components/
+│   ├── data/
+│   └── services/
+├── assets/
+├── README.md
+├── AI_USAGE.md
+├── package.json
+└── .gitignore
+
 ## 📱 Main Screens
 
 StudyMate consists of four main application screens:

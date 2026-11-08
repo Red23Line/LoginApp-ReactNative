@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -10,7 +10,8 @@ import {
   View
 } from "react-native";
 import TaskCard from "../components/TaskCard";
-import { Task, initialTasks } from "../data/tasks";
+import { Task } from "../data/tasks";
+import { createTask, getTasks } from "../services/tasksApi";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -18,13 +19,51 @@ export default function HomeScreen() {
     username?: string;
   }>();
 
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
+const [isLoadingTasks, setIsLoadingTasks] = useState(true);
+const [taskLoadError, setTaskLoadError] = useState("");
 
  const [showAddForm, setShowAddForm] = useState(false);
  const [newTitle, setNewTitle] = useState("");
  const [newSubject, setNewSubject] = useState("");
  const [newDeadline, setNewDeadline] = useState("");
  const [addTaskError, setAddTaskError] = useState("");
+ const [isSavingTask, setIsSavingTask] = useState(false);
+
+useEffect(() => {
+  let isActive = true;
+
+  const loadTasks = async () => {
+    try {
+      setIsLoadingTasks(true);
+      setTaskLoadError("");
+
+      const remoteTasks = await getTasks();
+
+      if (isActive) {
+        setTasks(remoteTasks);
+      }
+    } catch (error) {
+      if (isActive) {
+        setTaskLoadError(
+          error instanceof Error
+            ? error.message
+            : "Gagal mengambil data tugas"
+        );
+      }
+    } finally {
+      if (isActive) {
+        setIsLoadingTasks(false);
+      }
+    }
+  };
+
+  loadTasks();
+
+  return () => {
+    isActive = false;
+  };
+}, []);
 
   const completedTasks = tasks.filter(
     (task) => task.completed
@@ -37,7 +76,7 @@ export default function HomeScreen() {
       ? 0
       : Math.round((completedTasks / tasks.length) * 100);
 
-  const toggleTask = (id: number) => {
+  const toggleTask = (id: string | number) => {
     setTasks((currentTasks) =>
       currentTasks.map((task) =>
         task.id === id
@@ -47,7 +86,7 @@ export default function HomeScreen() {
     );
   };
 
-  const addTask = () => {
+const addTask = async () => {
   if (
     !newTitle.trim() ||
     !newSubject.trim() ||
@@ -57,24 +96,37 @@ export default function HomeScreen() {
     return;
   }
 
-  const newTask: Task = {
-    id: Date.now(),
-    title: newTitle.trim(),
-    subject: newSubject.trim(),
-    deadline: newDeadline.trim(),
-    completed: false,
-  };
+  try {
+    setIsSavingTask(true);
+    setAddTaskError("");
 
-  setTasks((currentTasks) => [
-    ...currentTasks,
-    newTask,
-  ]);
+    const createdTask = await createTask({
+      title: newTitle.trim(),
+      subject: newSubject.trim(),
+      deadline: newDeadline.trim(),
+      completed: false,
+    });
 
-  setNewTitle("");
-  setNewSubject("");
-  setNewDeadline("");
-  setAddTaskError("");
-  setShowAddForm(false);
+    setTasks((currentTasks) => [
+      ...currentTasks,
+      createdTask,
+    ]);
+
+    setNewTitle("");
+    setNewSubject("");
+    setNewDeadline("");
+    setAddTaskError("");
+    setShowAddForm(false);
+
+  } catch (error) {
+    setAddTaskError(
+      error instanceof Error
+        ? error.message
+        : "Gagal menyimpan tugas"
+    );
+  } finally {
+    setIsSavingTask(false);
+  }
 };
 
   return (
@@ -216,13 +268,14 @@ export default function HomeScreen() {
     )}
 
     <Pressable
-      style={styles.submitTaskButton}
-      onPress={addTask}
-    >
-      <Text style={styles.submitTaskText}>
-        Simpan Tugas
-      </Text>
-    </Pressable>
+  style={styles.submitTaskButton}
+  onPress={addTask}
+  disabled={isSavingTask}
+>
+  <Text style={styles.submitTaskText}>
+    {isSavingTask ? "Menyimpan..." : "Simpan Tugas"}
+  </Text>
+</Pressable>
 
     <Pressable
       style={styles.cancelTaskButton}
@@ -236,6 +289,26 @@ export default function HomeScreen() {
       </Text>
     </Pressable>
   </View>
+)}
+
+{isLoadingTasks && (
+  <Text style={styles.sectionSubtitle}>
+    Memuat tugas dari server...
+  </Text>
+)}
+
+{taskLoadError !== "" && (
+  <Text style={styles.formError}>
+    Gagal memuat tugas: {taskLoadError}
+  </Text>
+)}
+
+{!isLoadingTasks &&
+  taskLoadError === "" &&
+  tasks.length === 0 && (
+    <Text style={styles.sectionSubtitle}>
+      Belum ada tugas. Tambahkan tugas pertamamu!
+    </Text>
 )}
 
 {tasks.map((task) => (

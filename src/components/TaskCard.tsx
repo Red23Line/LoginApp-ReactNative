@@ -9,7 +9,7 @@ import { Task } from "../data/tasks";
 
 type TaskCardProps = {
   task: Task;
-  onToggle: (id: number) => void;
+  onToggle: (id: string | number) => void;
   onPressDetail: () => void;
 };
 
